@@ -10,10 +10,55 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_11_200742) do
+ActiveRecord::Schema.define(version: 2020_08_11_211100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "credentials", force: :cascade do |t|
+    t.string "body"
+    t.string "code"
+    t.string "type"
+    t.string "status"
+    t.string "dni_user"
+    t.string "email_user"
+    t.date "expiration_at"
+    t.bigint "user_id"
+    t.bigint "event_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_credentials_on_event_id"
+    t.index ["user_id"], name: "index_credentials_on_user_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "name"
+    t.string "location"
+    t.decimal "minimum_score"
+    t.date "date_programmed"
+    t.integer "organizations_count"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "institution_events", force: :cascade do |t|
+    t.bigint "event_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_institution_events_on_event_id"
+    t.index ["user_id"], name: "index_institution_events_on_user_id"
+  end
+
+  create_table "score_users", force: :cascade do |t|
+    t.decimal "score"
+    t.bigint "user_id", null: false
+    t.bigint "event_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_score_users_on_event_id"
+    t.index ["user_id"], name: "index_score_users_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "provider", default: "email", null: false
@@ -28,10 +73,16 @@ ActiveRecord::Schema.define(version: 2020_08_11_200742) do
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.string "name"
+    t.string "last_name"
     t.string "nickname"
+    t.string "dni"
     t.string "image"
     t.string "email"
-    t.string "dni"
+    t.integer "role", default: 0
+    t.string "web"
+    t.string "description"
+    t.string "phone"
+    t.integer "credentials_count"
     t.json "tokens"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -41,4 +92,10 @@ ActiveRecord::Schema.define(version: 2020_08_11_200742) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "credentials", "events"
+  add_foreign_key "credentials", "users"
+  add_foreign_key "institution_events", "events"
+  add_foreign_key "institution_events", "users"
+  add_foreign_key "score_users", "events"
+  add_foreign_key "score_users", "users"
 end
