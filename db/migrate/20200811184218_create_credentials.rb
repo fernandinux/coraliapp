@@ -3,8 +3,8 @@ class CreateCredentials < ActiveRecord::Migration[6.0]
     create_table :credentials do |t|
       t.string :body
       t.string :code
-      t.string :type
-      t.string :status
+      t.integer :type, default: 0
+      t.integer :status, default: 0
       t.string :dni_user
       t.string :email_user
       t.date :expiration_at

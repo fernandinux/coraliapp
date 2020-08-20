@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(version: 2020_08_11_211100) do
   create_table "credentials", force: :cascade do |t|
     t.string "body"
     t.string "code"
-    t.string "type"
-    t.string "status"
+    t.integer "type", default: 0
+    t.integer "status", default: 0
     t.string "dni_user"
     t.string "email_user"
     t.date "expiration_at"
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 2020_08_11_211100) do
     t.string "location"
     t.decimal "minimum_score"
     t.date "date_programmed"
-    t.integer "organizations_count"
+    t.integer "organizations_count", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -82,7 +82,7 @@ ActiveRecord::Schema.define(version: 2020_08_11_211100) do
     t.string "web"
     t.string "description"
     t.string "phone"
-    t.integer "credentials_count"
+    t.integer "credentials_count", default: 0
     t.json "tokens"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

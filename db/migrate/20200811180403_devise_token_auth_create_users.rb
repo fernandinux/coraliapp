@@ -39,7 +39,7 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[6.0]
       t.string :web
       t.string :description
       t.string :phone
-      t.integer :credentials_count
+      t.integer :credentials_count, default: 0
 
       ## Tokens
       t.json :tokens

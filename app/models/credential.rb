@@ -1,6 +1,6 @@
 class Credential < ApplicationRecord
-  has_many :users
-  has_many :events
-
-  #belongs_to :credentialable, polymorphic: true, counter_cache:true
+  belongs_to :event
+  belongs_to :user
+  enum type: %i[proof certificate].freeze
+  enum status: %i[sent received].freeze
 end
