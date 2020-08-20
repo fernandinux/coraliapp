@@ -5,19 +5,7 @@ Rails.application.routes.draw do
       mount_devise_token_auth_for 'User', at: 'auth'
       resources :credentials
       resources :events, only: [:index]
-      resources :users do
-        resources :credentials
-      end
+      resources :users
     end
   end
 end
-
-  # resources :users do
-  #   resources :credentials
-  # end
-
-  # resources :users
-  # resources :credentials
-
-#   resources :events, only: [:index]
-# end

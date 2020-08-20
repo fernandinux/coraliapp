@@ -1,22 +1,37 @@
 class Api::CredentialsController < ApplicationController
-    before_action :set_credential, only:[:show]
+    before_action :set_credential, only:[:show, :destroy]
+
+    before_action :authenticate_api_user!
 
     def index
-      # if(params[:user_id])
-        @user = User.find(params[:user_id])
+      @user = current_api_user
+      if(@user.role == "user" )
         @credentials = @user.credentials
-      # end
-      render json:@credentials
+      else
+        @credentials = Credential.all
+      end
+
+      if(@credentials.length == 0)
+        render json: {errors: "no credentials"}
+      else
+        render json: @credentials
+      end
     end
 
     def show
       render json: @credential
     end
 
+    def destroy
+      @credential.destroy
+    end
 
     private
     def set_credential
-      @user = User.find(params[:user_id])
-      @credential = @user.credentials.find(params[:id])
+      unless current_api_user
+        render json: {user: "User not found"}, status: :unauthorized
+      else
+        @credential = current_api_user.credentials.find(params[:id])
+      end
     end
 end
