@@ -18,7 +18,7 @@ class Api::EventsController < ApplicationController
     @event = Event.new(event_params)
 
     if @event.save
-      render json: @event, status: :created, location: @event
+      renders json: @event, status: :created, location: @event
     else
       render json: @event.errors, status: :unprocessable_entity
     end

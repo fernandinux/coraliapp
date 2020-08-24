@@ -16,9 +16,10 @@ ActiveRecord::Schema.define(version: 2020_08_11_211100) do
   enable_extension "plpgsql"
 
   create_table "credentials", force: :cascade do |t|
+    t.string "title"
     t.string "body"
     t.string "code"
-    t.integer "type", default: 0
+    t.integer "type_credential", default: 0
     t.integer "status", default: 0
     t.string "dni_user"
     t.string "email_user"
@@ -92,7 +93,6 @@ ActiveRecord::Schema.define(version: 2020_08_11_211100) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
-  add_foreign_key "credentials", "events"
   add_foreign_key "credentials", "users"
   add_foreign_key "institution_events", "events"
   add_foreign_key "institution_events", "users"
