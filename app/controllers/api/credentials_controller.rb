@@ -58,7 +58,6 @@ class Api::CredentialsController < ApplicationController
 
     def credential_params
       params
-      .fetch(:credential, {})
       .permit(
         :body, 
         :code,
@@ -67,7 +66,8 @@ class Api::CredentialsController < ApplicationController
         :expiration_at, 
         :event,
         :dni_user,
-        :email_user
+        :email_user,
+        :file,
       )
     end
 end
