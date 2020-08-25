@@ -42,3 +42,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Authentication
 gem 'devise_token_auth', '~> 1.1.4'
+
+# Environment variables
+gem 'dotenv-rails', groups: [:development, :test]
+
+# Storage
+gem "aws-sdk-s3", require: false

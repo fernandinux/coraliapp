@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_21_155307) do
+ActiveRecord::Schema.define(version: 2020_08_24_233016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,16 +36,50 @@ ActiveRecord::Schema.define(version: 2020_08_21_155307) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "drops", force: :cascade do |t|
+  create_table "credentials", force: :cascade do |t|
     t.string "title"
-    t.text "description"
+    t.string "body"
+    t.string "code"
+    t.integer "type_credential", default: 0
+    t.integer "status", default: 0
+    t.string "dni_user"
+    t.string "email_user"
+    t.date "expiration_at"
+    t.bigint "user_id"
+    t.bigint "event_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_credentials_on_event_id"
+    t.index ["user_id"], name: "index_credentials_on_user_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "name"
+    t.string "location"
+    t.decimal "minimum_score"
+    t.date "date_programmed"
+    t.integer "organizations_count", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "profiles", force: :cascade do |t|
+  create_table "institution_events", force: :cascade do |t|
+    t.bigint "event_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_institution_events_on_event_id"
+    t.index ["user_id"], name: "index_institution_events_on_user_id"
+  end
+
+  create_table "score_users", force: :cascade do |t|
+    t.decimal "score"
+    t.bigint "user_id", null: false
+    t.bigint "event_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_score_users_on_event_id"
+    t.index ["user_id"], name: "index_score_users_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -61,10 +95,16 @@ ActiveRecord::Schema.define(version: 2020_08_21_155307) do
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.string "name"
+    t.string "last_name"
     t.string "nickname"
+    t.string "dni"
     t.string "image"
     t.string "email"
-    t.string "dni"
+    t.integer "role", default: 0
+    t.string "web"
+    t.string "description"
+    t.string "phone"
+    t.integer "credentials_count", default: 0
     t.json "tokens"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -75,4 +115,9 @@ ActiveRecord::Schema.define(version: 2020_08_21_155307) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "credentials", "users"
+  add_foreign_key "institution_events", "events"
+  add_foreign_key "institution_events", "users"
+  add_foreign_key "score_users", "events"
+  add_foreign_key "score_users", "users"
 end
