@@ -6,6 +6,8 @@ Rails.application.routes.draw do
       resources :credentials
       resources :events, only: [:index]
       resources :users
+      get "credentials/code/:code", to: "credentials#verifycode"
+      get "users/:dni/credentials", to: "users#verifydni"
     end
   end
 end
