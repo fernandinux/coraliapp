@@ -104,6 +104,7 @@ ActiveRecord::Schema.define(version: 2020_08_24_233016) do
     t.string "web"
     t.string "description"
     t.string "phone"
+    t.string "linkedin"
     t.integer "credentials_count", default: 0
     t.json "tokens"
     t.datetime "created_at", precision: 6, null: false
