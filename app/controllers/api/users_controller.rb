@@ -1,6 +1,6 @@
 class Api::UsersController < ApplicationController
 
-  before_action :set_user, only: [:show]
+  before_action :set_user, only: [:update]
 
   before_action :authenticate_api_user!, only:[:show]
 
@@ -13,6 +13,14 @@ class Api::UsersController < ApplicationController
     render json: @user
   end
 
+  def update
+    if @current.update(user_params)
+      render json: @current
+    else
+      render json: @current.errors, status: :unprocessable_entity
+    end
+  end
+
   def verifydni
     @person = User.find_by(dni: params[:dni])
     if @person == nil
@@ -23,8 +31,23 @@ class Api::UsersController < ApplicationController
     end
     
   end
-  # private
-  # def set_user
-  #   @user = User.find(params[:id])
-  # end
+  private
+
+  def user_params
+    params.require(:user).permit(:name, 
+    :last_name, 
+    :nickname,
+    :dni,
+    :image,
+    :email,
+    :role,
+    :web,
+    :description, 
+    :phone,
+    :linkedin
+    )
+  end
+  def set_user
+    @current = User.find(params[:id])
+  end
 end
