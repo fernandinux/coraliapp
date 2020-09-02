@@ -7,6 +7,10 @@ class Credential < ApplicationRecord
   enum type: %i[proof certificate].freeze
   enum status: %i[sent received].freeze
 
+  # validates :file, {
+  #   presence: true
+  # }
+  
   def get_credential_file_url
     url_for(self.file)
   end

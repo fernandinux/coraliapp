@@ -46,6 +46,15 @@ class Api::CredentialsController < ApplicationController
       @credential.destroy
     end
 
+    def verifycode
+      @credentialCode = Credential.find_by(code: params[:code])
+      if @credentialCode == nil
+        render json: {errors: "no credential"}
+      else
+        render json: @credentialCode
+      end
+    end
+    
     private
 
     def set_credential

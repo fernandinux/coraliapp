@@ -98,12 +98,12 @@ ActiveRecord::Schema.define(version: 2020_08_24_233016) do
     t.string "last_name"
     t.string "nickname"
     t.string "dni"
-    t.string "image"
     t.string "email"
     t.integer "role", default: 0
     t.string "web"
     t.string "description"
     t.string "phone"
+    t.string "linkedin"
     t.integer "credentials_count", default: 0
     t.json "tokens"
     t.datetime "created_at", precision: 6, null: false
@@ -115,6 +115,7 @@ ActiveRecord::Schema.define(version: 2020_08_24_233016) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "credentials", "events"
   add_foreign_key "credentials", "users"
   add_foreign_key "institution_events", "events"
   add_foreign_key "institution_events", "users"

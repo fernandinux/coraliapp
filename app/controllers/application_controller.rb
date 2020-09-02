@@ -18,7 +18,8 @@ class ApplicationController < ActionController::API
         :role,
         :web,
         :description, 
-        :phone
+        :phone,
+        :linkedin
         ]
       )
  end
