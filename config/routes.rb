@@ -8,6 +8,8 @@ Rails.application.routes.draw do
       resources :users
       get "credentials/code/:code", to: "credentials#verifycode"
       get "users/:dni/credentials", to: "users#verifydni"
+      get "users/:id/image-profile", to: "users#getImage"
+      patch "users/:id/image-profile", to: "users#imageprofile"
     end
   end
 end

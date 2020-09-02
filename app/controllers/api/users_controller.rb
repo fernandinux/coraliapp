@@ -21,6 +21,21 @@ class Api::UsersController < ApplicationController
     end
   end
 
+  def getImage
+    @user = User.find(params[:id])
+    render json: {image_url: @user.get_user_image_url}
+  end
+  def imageprofile
+    @user = User.find(params[:id])
+    @user.image.attach(params[:image])
+
+    if(@user.save)
+      render json: {image_url: @user.get_user_image_url}
+    else
+      render json: @user.errors, status: :unprocessable_entity
+    end
+  end
+
   def verifydni
     @person = User.find_by(dni: params[:dni])
     if @person == nil
@@ -34,7 +49,7 @@ class Api::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, 
+    params.permit(:name, 
     :last_name, 
     :nickname,
     :dni,

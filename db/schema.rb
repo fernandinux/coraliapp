@@ -98,7 +98,6 @@ ActiveRecord::Schema.define(version: 2020_08_24_233016) do
     t.string "last_name"
     t.string "nickname"
     t.string "dni"
-    t.string "image"
     t.string "email"
     t.integer "role", default: 0
     t.string "web"
