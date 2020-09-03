@@ -14,8 +14,6 @@ class Api::UsersController < ApplicationController
   end
 
   def update
-    p user_params
-    p"------------------------"
     if @current.update(user_params)
       render json: @current
     else
