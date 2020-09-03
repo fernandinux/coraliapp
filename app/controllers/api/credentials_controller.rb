@@ -31,6 +31,8 @@ class Api::CredentialsController < ApplicationController
         @credential.email_user = current_api_user.email
       end
 
+      puts credential_params
+
       if @credential.save
       render json: @credential, status: :created
       else
