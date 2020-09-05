@@ -70,6 +70,7 @@ class Api::CredentialsController < ApplicationController
     def credential_params
       params
       .permit(
+        :title,
         :body, 
         :code,
         :type_credential, 
@@ -79,6 +80,10 @@ class Api::CredentialsController < ApplicationController
         :dni_user,
         :email_user,
         :file,
+        :name_institution,
+        :name_course,
+        :description,
+        :issue_at
       )
     end
 end
