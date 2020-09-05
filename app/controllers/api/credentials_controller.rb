@@ -53,7 +53,7 @@ class Api::CredentialsController < ApplicationController
       if @credentialCode == nil
         render json: {errors: "no credential"}
       else
-        render json: @credentialCode
+        render json: {credential: @credentialCode, pdf: @credentialCode.get_credential_file_url}
       end
     end
     
@@ -70,6 +70,7 @@ class Api::CredentialsController < ApplicationController
     def credential_params
       params
       .permit(
+        :title,
         :body, 
         :code,
         :type_credential, 
@@ -79,6 +80,10 @@ class Api::CredentialsController < ApplicationController
         :dni_user,
         :email_user,
         :file,
+        :name_institution,
+        :name_course,
+        :description,
+        :issue_at
       )
     end
 end

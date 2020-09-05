@@ -44,6 +44,10 @@ ActiveRecord::Schema.define(version: 2020_08_24_233016) do
     t.integer "status", default: 0
     t.string "dni_user"
     t.string "email_user"
+    t.string "name_institution"
+    t.string "name_course"
+    t.string "description"
+    t.date "issue_at"
     t.date "expiration_at"
     t.bigint "user_id"
     t.bigint "event_id"
