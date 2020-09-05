@@ -30,6 +30,10 @@ class User < ActiveRecord::Base
   end
 
   def get_user_image_url
-    url_for(self.image)
+    begin
+      url_for(self.image)
+    rescue => exception
+      nil
+    end
   end
 end
