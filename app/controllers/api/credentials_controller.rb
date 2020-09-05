@@ -53,7 +53,7 @@ class Api::CredentialsController < ApplicationController
       if @credentialCode == nil
         render json: {errors: "no credential"}
       else
-        render json: @credentialCode
+        render json: {credential: @credentialCode, pdf: @credentialCode.get_credential_file_url}
       end
     end
     
