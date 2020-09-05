@@ -4,7 +4,7 @@ class Api::CredentialsController < ApplicationController
     include AuthorizationModule
 
     before_action :set_credential, only:[:show, :destroy]
-    before_action :authenticate_api_user!
+    before_action :authenticate_api_user!, only:[:index, :show, :destroy]
     before_action :authorize_user, only:[:create]
 
     def index
