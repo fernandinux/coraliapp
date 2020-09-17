@@ -4,4 +4,6 @@ class Event < ApplicationRecord
 
   has_many :institution_events
   has_many :users, through: :institution_events
+
+  has_many :lists
 end

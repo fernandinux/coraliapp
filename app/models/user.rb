@@ -3,10 +3,18 @@
 class User < ActiveRecord::Base
   extend Devise::Models
   has_many :credentials
-  has_many :events, through: :credentials
-  enum role: %i[user institution admin].freeze
+  has_many :lists, through: :credentials
 
+  has_many :score_users
+  has_many :events, through: :score_users
+
+  has_many :institution_events
+  has_many :events, through: :institution_events
+
+  has_many :designs
+  has_many :lists
   has_one_attached :image
+  enum role: %i[user institution admin].freeze
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -14,8 +22,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
   include Rails.application.routes.url_helpers
-
-  has_many :credentials
 
   def isInstitution?
     return self.role == 'institution'

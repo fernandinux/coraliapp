@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_24_233016) do
+ActiveRecord::Schema.define(version: 2020_09_24_233016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,11 +50,22 @@ ActiveRecord::Schema.define(version: 2020_08_24_233016) do
     t.date "issue_at"
     t.date "expiration_at"
     t.bigint "user_id"
-    t.bigint "event_id"
+    t.bigint "list_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["event_id"], name: "index_credentials_on_event_id"
+    t.index ["list_id"], name: "index_credentials_on_list_id"
     t.index ["user_id"], name: "index_credentials_on_user_id"
+  end
+
+  create_table "designs", force: :cascade do |t|
+    t.string "editor_id"
+    t.string "url"
+    t.bigint "user_id", null: false
+    t.bigint "list_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["list_id"], name: "index_designs_on_list_id"
+    t.index ["user_id"], name: "index_designs_on_user_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -74,6 +85,18 @@ ActiveRecord::Schema.define(version: 2020_08_24_233016) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["event_id"], name: "index_institution_events_on_event_id"
     t.index ["user_id"], name: "index_institution_events_on_user_id"
+  end
+
+  create_table "lists", force: :cascade do |t|
+    t.string "name"
+    t.string "status"
+    t.integer "add_linkedin_count"
+    t.integer "list_visits_count"
+    t.integer "web_views_count"
+    t.bigint "event_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_lists_on_event_id"
   end
 
   create_table "score_users", force: :cascade do |t|
@@ -119,10 +142,13 @@ ActiveRecord::Schema.define(version: 2020_08_24_233016) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "credentials", "events"
+  add_foreign_key "credentials", "lists"
   add_foreign_key "credentials", "users"
+  add_foreign_key "designs", "lists"
+  add_foreign_key "designs", "users"
   add_foreign_key "institution_events", "events"
   add_foreign_key "institution_events", "users"
+  add_foreign_key "lists", "events"
   add_foreign_key "score_users", "events"
   add_foreign_key "score_users", "users"
 end

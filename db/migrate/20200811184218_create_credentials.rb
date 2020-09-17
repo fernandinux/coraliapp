@@ -14,7 +14,7 @@ class CreateCredentials < ActiveRecord::Migration[6.0]
       t.date :issue_at
       t.date :expiration_at
       t.references :user, null: true, foreign_key: true
-      t.references :event, null: true, foreign_key: true
+      t.references :list, null: true, foreign_key: true
       t.timestamps
     end
   end
