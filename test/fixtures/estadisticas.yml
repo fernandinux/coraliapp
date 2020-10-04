@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  add_linkedin_count: 1
+  list_visits_count: 1
+  web_views_count: 1
+  share_linkedin: 1
+  list_name: MyString
+
+two:
+  user_id: 1
+  add_linkedin_count: 1
+  list_visits_count: 1
+  web_views_count: 1
+  share_linkedin: 1
+  list_name: MyString

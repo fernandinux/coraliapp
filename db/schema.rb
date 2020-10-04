@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_24_233016) do
+ActiveRecord::Schema.define(version: 2020_10_04_162657) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,10 +44,6 @@ ActiveRecord::Schema.define(version: 2020_08_24_233016) do
     t.integer "status", default: 0
     t.string "dni_user"
     t.string "email_user"
-    t.string "name_institution"
-    t.string "name_course"
-    t.string "description"
-    t.date "issue_at"
     t.date "expiration_at"
     t.bigint "user_id"
     t.bigint "event_id"
@@ -55,6 +51,17 @@ ActiveRecord::Schema.define(version: 2020_08_24_233016) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["event_id"], name: "index_credentials_on_event_id"
     t.index ["user_id"], name: "index_credentials_on_user_id"
+  end
+
+  create_table "estadisticas", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "add_linkedin_count"
+    t.integer "list_visits_count"
+    t.integer "web_views_count"
+    t.integer "share_linkedin"
+    t.string "list_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "events", force: :cascade do |t|
@@ -102,12 +109,12 @@ ActiveRecord::Schema.define(version: 2020_08_24_233016) do
     t.string "last_name"
     t.string "nickname"
     t.string "dni"
+    t.string "image"
     t.string "email"
     t.integer "role", default: 0
     t.string "web"
     t.string "description"
     t.string "phone"
-    t.string "linkedin"
     t.integer "credentials_count", default: 0
     t.json "tokens"
     t.datetime "created_at", precision: 6, null: false
