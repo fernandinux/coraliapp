@@ -44,6 +44,10 @@ ActiveRecord::Schema.define(version: 2020_10_04_162657) do
     t.integer "status", default: 0
     t.string "dni_user"
     t.string "email_user"
+    t.string "name_institution"
+    t.string "name_course"
+    t.string "description"
+    t.date "issue_at"
     t.date "expiration_at"
     t.bigint "user_id"
     t.bigint "event_id"
@@ -109,12 +113,12 @@ ActiveRecord::Schema.define(version: 2020_10_04_162657) do
     t.string "last_name"
     t.string "nickname"
     t.string "dni"
-    t.string "image"
     t.string "email"
     t.integer "role", default: 0
     t.string "web"
     t.string "description"
     t.string "phone"
+    t.string "linkedin"
     t.integer "credentials_count", default: 0
     t.json "tokens"
     t.datetime "created_at", precision: 6, null: false

@@ -1,5 +1,10 @@
+require_relative './../modules/authorization_module'
 class Api::EstadisticasController < ApplicationController
+  include AuthorizationModule
+
   before_action :set_estadistica, only: [:show, :update, :destroy]
+  before_action :authenticate_api_user!, only:[:index, :show, :destroy]
+ before_action :authorize_user, only:[:create]
 
   # GET /estadisticas
   def index
@@ -17,8 +22,13 @@ class Api::EstadisticasController < ApplicationController
   def create
     @estadistica = Estadistica.new(estadistica_params)
 
+    @estadistica.user = current_api_user        
+    
+    puts estadistica_params
+    
+
     if @estadistica.save
-      render json: @estadistica, status: :created, location: @estadistica
+      render json: @estadistica, status: :created
     else
       render json: @estadistica.errors, status: :unprocessable_entity
     end
