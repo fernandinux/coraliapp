@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(version: 2020_09_24_233016) do
     t.integer "status", default: 0
     t.string "dni_user"
     t.string "email_user"
+    t.string "name_user"
+    t.string "lastname_user"
     t.string "name_institution"
     t.string "name_course"
     t.string "description"
