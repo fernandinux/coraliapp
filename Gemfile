@@ -48,3 +48,6 @@ gem 'dotenv-rails', groups: [:development, :test]
 
 # Storage
 gem "aws-sdk-s3", require: false
+
+# Multiple record
+gem 'activerecord-import', '~> 1.0.7'

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resources :events, only: [:index]
       resources :users
       get "credentials/code/:code", to: "credentials#verifycode"
+      post "credentials/multiple/raw", to: "credentials#create_by_multiple_raw_files"
       get "users/:dni/credentials", to: "users#verifydni"
       get "users/:id/image-profile", to: "users#getImage"
       patch "users/:id/image-profile", to: "users#imageprofile"
