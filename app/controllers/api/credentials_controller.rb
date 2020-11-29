@@ -1,4 +1,5 @@
 require 'csv'
+require 'securerandom'
 require_relative './../modules/authorization_module'
 
 TYPE_CREDENTIALS = {
@@ -73,6 +74,7 @@ class Api::CredentialsController < ApplicationController
         temp_certificate = Credential.new(file: credential_assigned)
         temp_user = User.find_by(dni: user[dni_index])
         temp_certificate.type_credential = TYPE_CREDENTIALS[:certificate]
+        temp_certificate.code = SecureRandom.uuid
         temp_certificate.dni_user = user[dni_index]
         temp_certificate.email_user = user[email_index]
         temp_certificate.name_institution = current_api_user.name
